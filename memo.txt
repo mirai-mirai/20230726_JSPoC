@@ -1,0 +1,8 @@
+うまくqrcode.jsが読み込めない
+
+tsconfig.jsonで宣言が必要か
+
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+
