@@ -10,19 +10,64 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
+    <style>
+      body {
+        background-color: #ffffff;
+      }
+
+      #colorSelected {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+      }
+
+      #textData {
+        width: 500px;
+      }
+
+      #lat,
+      #lng,
+      #zoom {
+        width: 500px;
+      }
+
+    </style>
   </head>
 
   <body>
     色を選択してください
     <input type="color" id="color-picker" value="#ffffff" />
     <br><br>
-    <div id="colorSelected" width="100px" height="100px" style="display:inline-block"></div>
+    選択した色：<br>
+    <div id="colorSelected"></div>
+    <br><br>
+    GoogleMapのQRコードを動的に生成します<br>
+    緯度：<input type="range" id="lat" value="35.6894" min="-90" max="90" step="0.01" oninput="changeData()" />
+    <div id="latVal"></div><br>
+    経度：<input type="range" id="lng" value="139.6917" min="-180" max="180" step="0.01" oninput="changeData()" /><br>
+    <div id="lngVal"></div><br>
+    ズーム：<input type="range" id="zoom" value="13" min="1" max="20" step="1" oninput="changeData()" /><br>
+    <div id="zoomVal"></div><br>
 
     <input type="text" id="textData" onkeydown="changeData()">
+    <a id="openLink" href="" target="_blank">open this link</a>
+    <br><br>
     <div id="qrcode"></div>
+
     <script type="text/javascript">
       let qrcode = null;
       const changeData = () => {
+        const lat = document.getElementById('lat').value;
+        const lng = document.getElementById('lng').value;
+        const zoom = document.getElementById('zoom').value;
+        document.getElementById('latVal').innerHTML = lat;
+        document.getElementById('lngVal').innerHTML = lng;
+        document.getElementById('zoomVal').innerHTML = zoom;
+        const url = `https://www.google.co.jp/maps/@${lat},${lng},${zoom}z`;
+
+        $("#openLink").attr("href", url)
+
+        document.getElementById('textData').value = url;
         const text = document.getElementById('textData').value;
         if (qrcode == null) {
           let codeArea = document.getElementById("qrcode");
@@ -35,8 +80,9 @@
       $(document).ready(function () {
         $("#color-picker").change(function () {
           var color = $(this).val();
-          $("body").css("background-color", color);
+          $("#colorSelected").css("background-color", color);
         });
+        changeData();
       });
 
     </script>
