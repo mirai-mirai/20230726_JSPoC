@@ -11,9 +11,12 @@
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
     <style>
+      html,
       body {
-        background-color: black;
+        background-color: #272727;
         color: white;
+        margin-top: 40px;
+        padding-top: 40px;
         margin: 0;
         padding: 0;
       }
@@ -29,7 +32,7 @@
       }
 
       #mapArea {
-        margin: 0;
+        margin-top: 50px;
         padding: 0;
         width: 70%;
         height: 900px;
@@ -37,11 +40,13 @@
       }
 
       #qrcodeArea {
+        margin-top: 50px;
+        margin-left: 10px;
         width: 20%;
         height: 100%;
         float: left;
-        margin: 0;
         padding: 7px;
+        font-weight: bold;
       }
 
       #pin {
@@ -56,15 +61,16 @@
 
   <body>
     <div id="mapArea">
-      <iframe id="map" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=136.88417673110965%2C35.17182631003751%2C136.91290855407718%2C35.189259307213256&amp;layer=mapnik"></iframe>
-      <img id="pin" src="929426.png" width="30px">
+      <iframe id="map" width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0"
+        marginwidth="0"></iframe>
+      <img id="pin" src="pin.png" width="50px">
     </div>
     <div id="qrcodeArea">
       <big>指定ポイントのQRコード</big><br><br>
-      緯度：<input type="range" id="lat" value="35.1710" min="34.5575" max="35.3465" step="0.01" oninput="changeData()" />
+      緯度：<input type="range" id="lat" value="35.17177469451945" min="34.5575" max="35.3465" step="0.01"
+        oninput="changeData()" />
       <div id="latVal"></div><br>
-      経度：<input type="range" id="lng" value="136.8826" min="136.58" max="137.53" step="0.01"
+      経度：<input type="range" id="lng" value="136.9082229082197" min="136.58" max="137.53" step="0.01"
         oninput="changeData()" /><br>
       <div id="lngVal"></div><br>
       ズーム：<input type="range" id="zoom" value="7" min="1" max="15" step="1" oninput="changeData()" /><br>
@@ -87,7 +93,7 @@
         document.getElementById('latVal').innerHTML = lat;
         document.getElementById('lngVal').innerHTML = lng;
         document.getElementById('zoomVal').innerHTML = zoom;
-        const url = `https://www.google.co.jp/maps/@${lat},${lng},${zoom / 5 + 13}z`;
+        const url = `https://www.google.co.jp/maps/@${lat},${lng},15z`;
         $("#openLink").attr("href", url)
 
         const tokyo = "https://www.openstreetmap.org/export/embed.html?bbox=139.5462799072266%2C35.53166744135354%2C140.00598907470706%2C35.808904044068626&amp;layer=mapnik"
